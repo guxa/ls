@@ -6,11 +6,12 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/26 17:41:55 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/27 15:55:53 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 void		b_ls(const char *flags, const char *folder)
 {
@@ -31,7 +32,7 @@ void		b_ls(const char *flags, const char *folder)
 			pateka = getfilepath(folder, ent->d_name);
 			xfile = fillelem(pateka, ent->d_name);
 			blslist(&filelist, xfile, flags);
-			free(pateka);	
+			free(pateka);
 			ent++;
 			//printf("pateka is %s", pateka);
 		}
@@ -75,12 +76,29 @@ t_afile			*fillelem(const char *path, char const *fname)
 	thefile->linksnum = atribute.st_nlink;
 	thefile->user = userx->pw_name;
 	thefile->group = groupx->gr_name;
-	thefile->timemodified = atribute.st_ctime;
+	thefile->timemodified = atribute.st_mtime;
 	thefile->timestr = NULL; //ke zatrebit ft_strdup(ctime(&thefile->timemodified));
 	thefile->name = (char *)fname;
 	thefile->type = (fname[0] == '.' ? 'a' : 'b');
 	thefile->next = NULL;
 	return (thefile);
+}
+
+char	flagchecker(const char *flags)
+{
+	int i;
+
+	i = 0;
+	while (flags[++i])
+		if (flags[i] != 'a' && flags[i] != 'l' && flags[i] != 'r'
+			&& flags[i] != 't')
+		{
+			printf("b_ls: illegal option -- %c\n", flags[i]);
+			printf("usage: ls [-alrt] [file ...]\n");
+			return 'E';
+		}
+
+	return ('n');
 }
 
 int main(int argc, char **argv)
