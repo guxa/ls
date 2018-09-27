@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 19:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/26 17:34:07 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/27 16:28:39 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct	s_afile
 
 }				t_afile;
 
+void			clearlist(t_afile *head);
+void			rtimesort(t_afile **head, t_afile *element);
 void			timesort(t_afile **head, t_afile *element);
 size_t			sizechecker(t_afile *alist);
 void			printpermisii(mode_t filemode);

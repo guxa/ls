@@ -6,13 +6,13 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 19:41:48 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/27 15:56:43 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/27 16:37:52 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void			blslist(t_afile **head, t_afile *element, const char *flags)
+void	blslist(t_afile **head, t_afile *element, const char *flags)
 {
 	if (!element)
 		return ;
@@ -131,4 +131,15 @@ void	rtimesort(t_afile **head, t_afile *element)
 	}
 	else
 		curr->next = element;
+}
+void	clearlist(t_afile *head)
+{
+	t_afile *temp;
+
+	while (head)
+	{
+		temp = head;
+		head = head->next;
+		free(temp);
+	}
 }

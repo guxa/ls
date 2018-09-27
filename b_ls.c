@@ -6,12 +6,11 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/27 15:55:53 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/27 16:33:04 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 void		b_ls(const char *flags, const char *folder)
 {
@@ -25,20 +24,18 @@ void		b_ls(const char *flags, const char *folder)
 	filelist = NULL;
 	if(!flags)
 		flags = "";
-	if((dirstrm = opendir(folder)) != NULL)
+	if((dirstrm = opendir(folder)) == NULL)
+		return (perror(folder));
+	while ((ent = readdir(dirstrm)) != NULL)
 	{
-		while((ent = readdir(dirstrm)) != NULL)
-		{
-			pateka = getfilepath(folder, ent->d_name);
-			xfile = fillelem(pateka, ent->d_name);
-			blslist(&filelist, xfile, flags);
-			free(pateka);
-			ent++;
-			//printf("pateka is %s", pateka);
-		}
+		pateka = getfilepath(folder, ent->d_name);
+		xfile = fillelem(pateka, ent->d_name);
+		blslist(&filelist, xfile, flags);
+		free(pateka);
+		ent++;
 	}
 	blsprinter(filelist, flags);
-	//free(xfile);  funkcija za free na cel ela lista
+	clearlist(filelist);
 	closedir(dirstrm);
 	//exit(0);
 }
@@ -121,7 +118,8 @@ int main(int argc, char **argv)
 		b_ls(argv[1], ".");
 	while (i < argc)
 	{
-		printf("%s:\n", argv[i]);
+		if (argc > 2)
+			printf("%s:\n", argv[i]);
 		b_ls(flag, argv[i]);
 		if (i + 1 != argc)
 			printf("\n");
@@ -138,21 +136,3 @@ https://linux.die.net/man/2/stat
 http://man7.org/linux/man-pages/man3/ctime.3.html
 https://www.garron.me/en/go2linux/ls-file-permissions.html
 */
-
-/* izbrisano od while loop od b_ls
-//if (strlen(ent->d_name) != 0) */
-
-	// while (i < argc && !flag)
-	// {
-	// 	printf("%s:\n", argv[i]);
-	// 	b_ls(flag, argv[i]); // ovde bese "" prv param
-	// 	i++;
-	// 	printf("\n");
-	// }
-	// while (++i < argc && flag)
-	// {
-	// 	printf("%s:\n", argv[i]);
-	// 	b_ls(flag, argv[i]); // ovde bese argv[1] prv param
-	// 	if (i + 1 != argc)
-	// 		printf("\n");
-	// }
