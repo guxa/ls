@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 19:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/27 16:28:39 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/27 23:24:33 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <string.h>
 # include <ctype.h>
 # include <stdarg.h>
+# include <errno.h>
 
 typedef struct	s_afile
 {
@@ -35,12 +36,16 @@ typedef struct	s_afile
 	char				*group;
 	size_t				fsize;
 	time_t				timemodified;	
-	char				*timestr;
+	//char				*timestr;
 	char				type;
+	blkcnt_t			blocks;
+	char				linkedfile[1024];
 	struct s_afile		*next;
 
 }				t_afile;
 
+void			getslink(const char *path, t_afile *thefile);
+size_t			blockcounter(t_afile *alist);
 void			clearlist(t_afile *head);
 void			rtimesort(t_afile **head, t_afile *element);
 void			timesort(t_afile **head, t_afile *element);

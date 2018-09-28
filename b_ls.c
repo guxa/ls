@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/27 16:56:23 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/27 23:24:14 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void		b_ls(const char *flags, const char *folder)
 	blsprinter(filelist, flags);
 	clearlist(filelist);
 	closedir(dirstrm);
-	//exit(0);
+	if (errno)
+		printf("\n%s", strerror(errno));
 }
 
 char	*getfilepath(const char *folder, const char *filename)
@@ -62,7 +63,7 @@ t_afile			*fillelem(const char *path, char const *fname)
 	struct passwd *userx;
 
 	thefile = (t_afile*)malloc(sizeof(t_afile));
-	if (stat(path, &atribute) != 0 || !thefile)
+	if (lstat(path, &atribute) != 0 || !thefile)
 		return (NULL);
 	userx = getpwuid(atribute.st_uid);
 	groupx = getgrgid(atribute.st_gid);
@@ -72,11 +73,27 @@ t_afile			*fillelem(const char *path, char const *fname)
 	thefile->user = userx->pw_name;
 	thefile->group = groupx->gr_name;
 	thefile->timemodified = atribute.st_mtime;
-	thefile->timestr = NULL; //ke zatrebit ft_strdup(ctime(&thefile->timemodified));
-	thefile->name = (char *)fname;
+	thefile->name = ft_strdup(fname); //(char *)fname; imav problemi so ova
 	thefile->type = (fname[0] == '.' ? 'a' : 'b');
+	thefile->blocks = atribute.st_blocks;
 	thefile->next = NULL;
+	if (S_ISLNK(thefile->permisii))
+		getslink(path, thefile);
 	return (thefile);
+}
+
+void	getslink(const char *path, t_afile *thefile)
+{
+		ssize_t len;
+
+		len = readlink(path, thefile->linkedfile, sizeof(thefile->linkedfile) - 1);
+		if (len != -1)
+			thefile->linkedfile[len] = '\0';
+		else
+		{
+			perror(path);
+			exit (-1);
+		}	
 }
 
 char	flagchecker(const char *flags)
@@ -123,7 +140,7 @@ int main(int argc, char **argv)
 			printf("\n");
 		i++;
 	}
-	return (0);
+	exit(0);
 }
 
 /*
