@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 21:08:57 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/26 17:18:50 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/27 17:03:12 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ void	blsprinter(t_afile *filelist, const char *flags)
 	sizewidth = sizechecker(filelist);
 	while (filelist)
 	{
-		if (strchr(flags, 'a') == NULL && filelist->type == 'a')
-		{
-			filelist = filelist->next;
-			continue;
-		}
 		if (strchr(flags, 'l'))
 		{
 			printpermisii(filelist->permisii);

@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 19:41:48 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/27 16:37:52 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/27 17:01:52 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	blslist(t_afile **head, t_afile *element, const char *flags)
 {
-	if (!element)
+	if (!element || (!(ft_strchr(flags, 'a')) && element->type == 'a'))
 		return ;
 	if (*head == NULL)
 	{
@@ -23,7 +23,7 @@ void	blslist(t_afile **head, t_afile *element, const char *flags)
 	}
 	if (ft_strchr(flags, 't') && ft_strchr(flags, 'r'))
 		rtimesort(head, element);
-	else if (flags && ft_strchr(flags, 'r')) //flagchecker(flags) == 'r')
+	else if (flags && ft_strchr(flags, 'r'))
 		revabcsort(head, element);
 	else if (ft_strchr(flags, 't'))
 		timesort(head, element);
@@ -97,7 +97,7 @@ void	timesort(t_afile **head, t_afile *element)
 		{
 			*head = element;
 			//curr->next = NULL;
-		}			
+		}
 		else
 			prev->next = element;
 		element->next = curr;
@@ -124,22 +124,11 @@ void	rtimesort(t_afile **head, t_afile *element)
 		{
 			*head = element;
 			//curr->next = NULL;
-		}			
+		}		
 		else
 			prev->next = element;
 		element->next = curr;
 	}
 	else
 		curr->next = element;
-}
-void	clearlist(t_afile *head)
-{
-	t_afile *temp;
-
-	while (head)
-	{
-		temp = head;
-		head = head->next;
-		free(temp);
-	}
 }
