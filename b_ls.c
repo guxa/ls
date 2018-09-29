@@ -6,13 +6,13 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/27 23:24:14 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/29 00:05:32 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		b_ls(const char *flags, const char *folder)
+int			b_ls(const char *flags, const char *folder, int argc)
 {
 	DIR		*dirstrm;
 	struct	dirent *ent;
@@ -22,10 +22,8 @@ void		b_ls(const char *flags, const char *folder)
 
 	xfile = NULL;
 	filelist = NULL;
-	if(!flags)
-		flags = "";
 	if((dirstrm = opendir(folder)) == NULL)
-		return (perror(folder));
+		return printf("b_ls: %s: %s\n", folder, strerror(errno));
 	while ((ent = readdir(dirstrm)) != NULL)
 	{
 		pateka = getfilepath(folder, ent->d_name);
@@ -34,14 +32,17 @@ void		b_ls(const char *flags, const char *folder)
 		free(pateka);
 		ent++;
 	}
+	if (argc > 3 || (argc == 3 && ft_strlen(flags) < 1))
+		printf("%s:\n", folder);
 	blsprinter(filelist, flags);
 	clearlist(filelist);
 	closedir(dirstrm);
 	if (errno)
 		printf("\n%s", strerror(errno));
+	return (0);
 }
 
-char	*getfilepath(const char *folder, const char *filename)
+char		*getfilepath(const char *folder, const char *filename)
 {
 	char *pateka;
 
@@ -55,48 +56,7 @@ char	*getfilepath(const char *folder, const char *filename)
 	return pateka;
 }
 
-t_afile			*fillelem(const char *path, char const *fname)
-{
-	t_afile *thefile;
-	struct stat atribute;	
-	struct group *groupx;
-	struct passwd *userx;
-
-	thefile = (t_afile*)malloc(sizeof(t_afile));
-	if (lstat(path, &atribute) != 0 || !thefile)
-		return (NULL);
-	userx = getpwuid(atribute.st_uid);
-	groupx = getgrgid(atribute.st_gid);
-	thefile->permisii = atribute.st_mode;
-	thefile->fsize = atribute.st_size;
-	thefile->linksnum = atribute.st_nlink;
-	thefile->user = userx->pw_name;
-	thefile->group = groupx->gr_name;
-	thefile->timemodified = atribute.st_mtime;
-	thefile->name = ft_strdup(fname); //(char *)fname; imav problemi so ova
-	thefile->type = (fname[0] == '.' ? 'a' : 'b');
-	thefile->blocks = atribute.st_blocks;
-	thefile->next = NULL;
-	if (S_ISLNK(thefile->permisii))
-		getslink(path, thefile);
-	return (thefile);
-}
-
-void	getslink(const char *path, t_afile *thefile)
-{
-		ssize_t len;
-
-		len = readlink(path, thefile->linkedfile, sizeof(thefile->linkedfile) - 1);
-		if (len != -1)
-			thefile->linkedfile[len] = '\0';
-		else
-		{
-			perror(path);
-			exit (-1);
-		}	
-}
-
-char	flagchecker(const char *flags)
+int		flagchecker(const char *flags)
 {
 	int i;
 
@@ -107,10 +67,10 @@ char	flagchecker(const char *flags)
 		{
 			printf("b_ls: illegal option -- %c\n", flags[i]);
 			printf("usage: ls [-alrt] [file ...]\n");
-			return 'E';
+			return (0);
 		}
 
-	return ('n');
+	return (1);
 }
 
 int main(int argc, char **argv)
@@ -121,22 +81,20 @@ int main(int argc, char **argv)
 	i = 1;
 	flag = NULL;
 	if (argc < 2)
-		b_ls(flag, ".");
+		b_ls(flag, ".", argc);
 	else if (argv[1][0] == '-')
 	{
-		flag = argv[1];
+		if ((flag = argv[1]) && !flagchecker(argv[1]))
+			return (0);
 		i++;
 	}
-	if (flag && flagchecker(argv[1]) == 'E')
-		return (0);
 	if (argc == 2 && flag)
-		b_ls(argv[1], ".");
+		b_ls(argv[1], ".", argc);
+	if (!flag)
+		flag = "";
 	while (i < argc)
 	{
-		if (argc > 3 || (argc == 3 && !flag))
-			printf("%s:\n", argv[i]);
-		b_ls(flag, argv[i]);
-		if (i + 1 != argc)
+		if (!b_ls(flag, argv[i], argc) && i + 1 != argc)
 			printf("\n");
 		i++;
 	}

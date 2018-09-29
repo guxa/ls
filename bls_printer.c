@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 21:08:57 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/27 23:46:49 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/29 01:03:09 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@ void	blsprinter(t_afile *filelist, const char *flags)
 	int sizewidth;
 	int blocks;
 
+	blocks = 0;
 	if (strchr(flags, 'l'))
 	{
 		blocks = blockcounter(filelist);
 		sizewidth = sizechecker(filelist);
-		printf("total %d\n", blocks);
+		(blocks > 0 ? printf("total %d\n", blocks) : 0);
 		while (filelist)
 		{
 			printpermisii(filelist->permisii);
-			printf("%3d ", filelist->linksnum);
+			printf("%c %1d ", filelist->xattr, filelist->linksnum);
 			printf("%-s  %-s  ", filelist->user, filelist->group);
 			printf("%*zu ", sizewidth, filelist->fsize);
 			timeprinter(filelist);
@@ -54,7 +55,7 @@ size_t		sizechecker(t_afile *alist)
 	while (alist)
 	{
 		if (alist->fsize > lsize)
-		lsize = alist->fsize;
+			lsize = alist->fsize;
 		alist = alist->next;
 	}
 	return (countdigits(lsize, 10));
@@ -68,7 +69,7 @@ size_t		blockcounter(t_afile *alist)
 	while (alist)
 	{
 		if (alist->blocks)
-		lsize += alist->blocks;
+			lsize += alist->blocks;
 		alist = alist->next;
 	}
 	return (lsize);

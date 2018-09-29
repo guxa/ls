@@ -6,13 +6,14 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 19:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/27 23:24:33 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/29 01:00:47 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <sys/xattr.h>
 # include <pwd.h>
 # include <grp.h>
 # include <time.h>
@@ -26,6 +27,7 @@
 # include <ctype.h>
 # include <stdarg.h>
 # include <errno.h>
+# include <sys/acl.h>
 
 typedef struct	s_afile
 {
@@ -35,15 +37,16 @@ typedef struct	s_afile
 	char				*user;
 	char				*group;
 	size_t				fsize;
-	time_t				timemodified;	
-	//char				*timestr;
+	time_t				timemodified;
 	char				type;
+	char				xattr;
 	blkcnt_t			blocks;
 	char				linkedfile[1024];
 	struct s_afile		*next;
 
 }				t_afile;
 
+char			xattr(const char *path, t_afile *thefile);
 void			getslink(const char *path, t_afile *thefile);
 size_t			blockcounter(t_afile *alist);
 void			clearlist(t_afile *head);
@@ -54,12 +57,12 @@ void			printpermisii(mode_t filemode);
 char			*getfilepath(const char *folder, const char *filename);
 void			timeprinter(t_afile *dfile);
 void			blsprinter(t_afile *filelist, const char *flags);
-char			flagchecker(const char *flags);
+int				flagchecker(const char *flags);
 void			revabcsort(t_afile **head, t_afile *element);
 void			abcsort(t_afile **head, t_afile *element);
 void			blslist(t_afile **head, t_afile *element, const char *flags);
 t_afile			*fillelem(const char *path, char const *fname);
-void			b_ls(const char *flags, const char *folder);
+int				b_ls(const char *flags, const char *folder, int argc);
 
 int				numberhandler(void *number, char type);
 int				myprinter(const char *str, int start, int end);
