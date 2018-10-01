@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 19:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/30 17:30:35 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/01 15:13:37 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct	s_afile
 
 }				t_afile;
 
+int				sortjunk(char **argv, int argc, int flag);
 void			sortargvs(char **argv, int argc, int flag);
 char			xattr(const char *path, t_afile *thefile);
 void			getslink(const char *path, t_afile *thefile);
@@ -64,6 +65,7 @@ void			abcsort(t_afile **head, t_afile *element);
 void			blslist(t_afile **head, t_afile *element, const char *flags);
 t_afile			*fillelem(const char *path, char const *fname);
 int				b_ls(const char *flags, const char *folder, int argc);
+char			*ft_strcat(char *dest, const char *string);
 
 int				numberhandler(void *number, char type);
 int				myprinter(const char *str, int start, int end);

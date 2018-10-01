@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/30 17:42:14 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/01 15:25:09 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			b_ls(const char *flags, const char *folder, int argc)
 
 	xfile = NULL;
 	filelist = NULL;
-	if((dirstrm = opendir(folder)) == NULL)
+	if ((dirstrm = opendir(folder)) == NULL)
 		return printf("b_ls: %s: %s\n", folder, strerror(errno));
 	while ((ent = readdir(dirstrm)) != NULL)
 	{
@@ -50,8 +50,8 @@ char		*getfilepath(const char *folder, const char *filename)
 	if (pateka)
 	{
 		ft_strcpy(pateka, folder);
-		strcat(pateka, "/");
-		strcat(pateka, filename);
+		ft_strcat(pateka, "/");
+		ft_strcat(pateka, filename);
 	}
 	return pateka;
 }
@@ -106,11 +106,15 @@ void	sortargvs(char **argv, int argc, int flag)
 {
 	int i;
 	char *temp;
+	// int x;
 
 	temp = NULL;
 	i = flag;
+	// x = sortjunk(argv, argc, flag);
 	while (i < argc - 1)
 	{
+		// if (i == x)
+		// 	i++;
 		if (ft_strcmp(argv[i], argv[i + 1]) > 0)
 		{
 			temp = argv[i];
@@ -121,6 +125,37 @@ void	sortargvs(char **argv, int argc, int flag)
 		i++;
 	}
 }
+
+// int			sortjunk(char **argv, int argc, int flag)
+// {
+// 	int		i;
+// 	char	*temp;
+// 	DIR		*dirstream;
+// 	DIR		*xstream;
+// 	int		x;
+
+// 	i = flag;
+// 	temp = NULL;
+// 	xstream = NULL;
+// 	while (i < argc - 1)
+// 	{
+// 		if ((dirstream = opendir(argv[i]))
+// 			&& (xstream = opendir(argv[i + 1])) == NULL)
+// 		{
+// 			temp = argv[i];
+// 			argv[i] = argv[i + 1];
+// 			argv[i + 1] = temp;
+// 			x = i;
+// 			i = flag - 1;
+// 		}
+// 		if (dirstream)
+// 			closedir(dirstream);
+// 		if (xstream)
+// 			closedir(xstream);
+// 		i++;
+// 	}
+// 	return (x);
+// }
 
 /*
 https://stackoverflow.com/questions/9101590/fprintf-and-ctime-without-passing-n-from-ctime

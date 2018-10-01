@@ -6,7 +6,7 @@
 #    By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/14 16:52:43 by jguleski          #+#    #+#              #
-#    Updated: 2018/09/30 20:03:07 by jguleski         ###   ########.fr        #
+#    Updated: 2018/10/01 15:13:43 by jguleski         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ BLS = blstfuncs.c \
 	  cleanlist.c \
 	  getfiledata.c \
 	  bls_permis.c \
+	  ft_strcat.c \
 
 SRC = $(BLIBFT)b_printf.c \
 	  $(BLIBFT)bprintf_parser.c \
