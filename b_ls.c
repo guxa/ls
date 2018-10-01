@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/29 00:05:32 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/30 17:42:14 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int main(int argc, char **argv)
 		b_ls(argv[1], ".", argc);
 	if (!flag)
 		flag = "";
+	sortargvs(argv, argc, i);
 	while (i < argc)
 	{
 		if (!b_ls(flag, argv[i], argc) && i + 1 != argc)
@@ -99,6 +100,26 @@ int main(int argc, char **argv)
 		i++;
 	}
 	exit(0);
+}
+
+void	sortargvs(char **argv, int argc, int flag)
+{
+	int i;
+	char *temp;
+
+	temp = NULL;
+	i = flag;
+	while (i < argc - 1)
+	{
+		if (ft_strcmp(argv[i], argv[i + 1]) > 0)
+		{
+			temp = argv[i];
+			argv[i] = argv[i + 1];
+			argv[i + 1] = temp;
+			i = flag - 1;
+		}
+		i++;
+	}
 }
 
 /*

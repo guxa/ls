@@ -6,19 +6,22 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 21:08:57 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/29 01:03:09 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/30 21:47:56 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
 ** logikata vo timeprinte, so .12 se kazvit deka max 12 karakteri ke isprintat
 ** od pocetok na stringot. a so &str[4], mu davam pointer da pocnit od 4 poz
-** i so to da go preskoknit denot so zboroj pr. WED i space-ot posle nego 
+** i so to da go preskoknit denot so zboroj pr. WED i space-ot posle nego
+** $$$ VAZNO: funk Printpermisii mojt da se skratit, ako primat us 1 parametar
+** od tip char*, i pri povik ke i se dajt ft_newstr(9), samo so FREE togas
+** ne znam kako ke prajme (:
 */
 
 #include "libft.h"
 
-void	blsprinter(t_afile *filelist, const char *flags)
+void		blsprinter(t_afile *filelist, const char *flags)
 {
 	int sizewidth;
 	int blocks;
@@ -32,7 +35,7 @@ void	blsprinter(t_afile *filelist, const char *flags)
 		while (filelist)
 		{
 			printpermisii(filelist->permisii);
-			printf("%c %1d ", filelist->xattr, filelist->linksnum);
+			printf("%c %2d ", filelist->xattr, filelist->linksnum);
 			printf("%-s  %-s  ", filelist->user, filelist->group);
 			printf("%*zu ", sizewidth, filelist->fsize);
 			timeprinter(filelist);
@@ -75,7 +78,7 @@ size_t		blockcounter(t_afile *alist)
 	return (lsize);
 }
 
-void	timeprinter(t_afile *dfile)
+void		timeprinter(t_afile *dfile)
 {
 	time_t	current_time;
 	long	sixmonths;
@@ -89,51 +92,8 @@ void	timeprinter(t_afile *dfile)
 	}
 	else
 		printf("%.12s ", &(ctime(&dfile->timemodified)[4]));
-	
 	if (S_ISLNK(dfile->permisii))
 		printf("%-s -> %s\n", dfile->name, dfile->linkedfile);
 	else
 		printf("%-s\n", dfile->name);
 }
-
-void	printpermisii(mode_t filemode)
-{
-	char *permisii;
-	
-	permisii = ft_newstr(9);
-	permisii[0] = (filemode & S_IRUSR) ? 'r' : '-';
-	permisii[1] = (filemode & S_IWUSR) ? 'w' : '-';
-	permisii[2] = (filemode & S_IXUSR) ? 'x' : '-';
-	permisii[3] = (filemode & S_IRGRP) ? 'r' : '-';
-	permisii[4] = (filemode & S_IWGRP) ? 'w' : '-';
-	permisii[5] = (filemode & S_IXGRP) ? 'x' : '-';
-	permisii[6] = (filemode & S_IROTH) ? 'r' : '-';
-	permisii[7] = (filemode & S_IWOTH) ? 'w' : '-';
-	permisii[8] = (filemode & S_IXOTH) ? 'x' : '-';
-	if (S_ISDIR(filemode))
-		printf("%c%s", 'd',permisii);
-	else if (S_ISBLK(filemode))
-		printf("%c%s", 'b',permisii);	
-	else if (S_ISCHR(filemode))
-		printf("%c%s", 'c',permisii);
-	else if (S_ISFIFO(filemode))
-		printf("%c%s", 'p', permisii);
-	else if (S_ISREG(filemode))
-		printf("%c%s", '-', permisii);
-	else if (S_ISLNK(filemode))
-		printf("%c%s", 'l', permisii);
-	else if (S_ISSOCK(filemode))
-		printf("%c%s", 's', permisii);
-}
-
-/*
-**	OD timeprinter
-	struct tm timenow;
-	struct tm filetime;
-	timenow = *localtime(&current_time);
-	filetime = *localtime(&dfile->timemodified);
-
-	if (timenow.tm_year != filetime.tm_year ||
-	timenow.tm_mon - filetime.tm_mon >= 6)
-		printf("%.4s ", &(ctime(&dfile->timemodified)[20]));
-*/

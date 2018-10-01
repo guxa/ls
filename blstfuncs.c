@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 19:41:48 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/28 23:35:54 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/30 22:11:54 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,24 +86,26 @@ void	timesort(t_afile **head, t_afile *element)
 
 	prev = NULL;
 	curr = *head;
-	while (curr->next && (curr->timemodified - element->timemodified >= 0))
+	while (curr->next && (curr->timemodified - element->timemodified > 0))
 	{
 		prev = curr;
 		curr = curr->next;
 	}
-	if (curr->timemodified - element->timemodified <= 0)
+	if (curr->timemodified - element->timemodified < 0 || (curr->timemodified -
+	element->timemodified == 0 && ft_strcmp(curr->name, element->name) > 0))
 	{
 		if (!prev)
-		{
 			*head = element;
-			//curr->next = NULL;
-		}
 		else
 			prev->next = element;
 		element->next = curr;
 	}
 	else
+	{
+		prev = curr->next;
 		curr->next = element;
+		element->next = prev;
+	}
 }
 
 void	rtimesort(t_afile **head, t_afile *element)
@@ -121,10 +123,7 @@ void	rtimesort(t_afile **head, t_afile *element)
 	if (curr->timemodified - element->timemodified >= 0)
 	{
 		if (!prev)
-		{
 			*head = element;
-			//curr->next = NULL;
-		}		
 		else
 			prev->next = element;
 		element->next = curr;

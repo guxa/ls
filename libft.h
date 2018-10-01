@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 19:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/29 01:00:47 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/30 17:30:35 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct	s_afile
 
 }				t_afile;
 
+void			sortargvs(char **argv, int argc, int flag);
 char			xattr(const char *path, t_afile *thefile);
 void			getslink(const char *path, t_afile *thefile);
 size_t			blockcounter(t_afile *alist);

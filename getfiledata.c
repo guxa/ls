@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/29 00:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/29 01:10:28 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/30 16:17:57 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_afile		*fillelem(const char *path, char const *fname)
 	userx = getpwuid(atribute.st_uid);
 	groupx = getgrgid(atribute.st_gid);
 	thefile->permisii = atribute.st_mode;
-	thefile->xattr = ' ';//xattr(path, thefile);
+	thefile->xattr = ' '; // xattr(path, thefile); //
 	thefile->linksnum = atribute.st_nlink;
 	thefile->user = userx->pw_name;
 	thefile->group = groupx->gr_name;
@@ -59,10 +59,11 @@ char	xattr(const char *path, t_afile *thefile)
 	ssize_t len;
 	//acl_t	acl;
 
-	if(thefile->name[0] == '.')
+	len = 0;
+	if (thefile->name[0] == '.')
 		return (' ');
 	//acl = NULL;
-	len = listxattr(path, thefile->linkedfile, 0, XATTR_NOFOLLOW);
+	len = listxattr(path, NULL, 0, XATTR_NOFOLLOW);
 	//acl = acl_get_link_np(path, ACL_TYPE_EXTENDED);
 	if (len == -1)
 	{
