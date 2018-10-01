@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/01 15:25:09 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/01 16:51:33 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int			b_ls(const char *flags, const char *folder, int argc)
 {
-	DIR		*dirstrm;
-	struct	dirent *ent;
-	t_afile	*xfile;
-	t_afile	*filelist;
-	char	*pateka;
+	DIR				*dirstrm;
+	struct dirent	*ent;
+	t_afile			*xfile;
+	t_afile			*filelist;
+	char			*pateka;
 
 	xfile = NULL;
 	filelist = NULL;
 	if ((dirstrm = opendir(folder)) == NULL)
-		return printf("b_ls: %s: %s\n", folder, strerror(errno));
+		return (printf("b_ls: %s: %s\n", folder, strerror(errno)));
 	while ((ent = readdir(dirstrm)) != NULL)
 	{
 		pateka = getfilepath(folder, ent->d_name);
@@ -53,10 +53,10 @@ char		*getfilepath(const char *folder, const char *filename)
 		ft_strcat(pateka, "/");
 		ft_strcat(pateka, filename);
 	}
-	return pateka;
+	return (pateka);
 }
 
-int		flagchecker(const char *flags)
+int			flagchecker(const char *flags)
 {
 	int i;
 
@@ -69,14 +69,13 @@ int		flagchecker(const char *flags)
 			printf("usage: ls [-alrt] [file ...]\n");
 			return (0);
 		}
-
 	return (1);
 }
 
-int main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
-	int i;
-	char *flag;
+	int		i;
+	char	*flag;
 
 	i = 1;
 	flag = NULL;
@@ -102,60 +101,6 @@ int main(int argc, char **argv)
 	exit(0);
 }
 
-void	sortargvs(char **argv, int argc, int flag)
-{
-	int i;
-	char *temp;
-	// int x;
-
-	temp = NULL;
-	i = flag;
-	// x = sortjunk(argv, argc, flag);
-	while (i < argc - 1)
-	{
-		// if (i == x)
-		// 	i++;
-		if (ft_strcmp(argv[i], argv[i + 1]) > 0)
-		{
-			temp = argv[i];
-			argv[i] = argv[i + 1];
-			argv[i + 1] = temp;
-			i = flag - 1;
-		}
-		i++;
-	}
-}
-
-// int			sortjunk(char **argv, int argc, int flag)
-// {
-// 	int		i;
-// 	char	*temp;
-// 	DIR		*dirstream;
-// 	DIR		*xstream;
-// 	int		x;
-
-// 	i = flag;
-// 	temp = NULL;
-// 	xstream = NULL;
-// 	while (i < argc - 1)
-// 	{
-// 		if ((dirstream = opendir(argv[i]))
-// 			&& (xstream = opendir(argv[i + 1])) == NULL)
-// 		{
-// 			temp = argv[i];
-// 			argv[i] = argv[i + 1];
-// 			argv[i + 1] = temp;
-// 			x = i;
-// 			i = flag - 1;
-// 		}
-// 		if (dirstream)
-// 			closedir(dirstream);
-// 		if (xstream)
-// 			closedir(xstream);
-// 		i++;
-// 	}
-// 	return (x);
-// }
 
 /*
 https://stackoverflow.com/questions/9101590/fprintf-and-ctime-without-passing-n-from-ctime

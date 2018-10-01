@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 15:08:34 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/01 15:12:57 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/01 15:27:43 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	*ft_strcat(char *dest, const char *string)
 		i++;
 	while (string[x])
 		dest[i++] = string[x++];
-	
 	dest[i] = '\0';
 	return (dest);
 }
