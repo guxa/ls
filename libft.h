@@ -6,14 +6,13 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 19:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/01 16:38:14 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/01 17:12:31 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <sys/xattr.h>
 # include <pwd.h>
 # include <grp.h>
 # include <time.h>
@@ -28,6 +27,7 @@
 # include <stdarg.h>
 # include <errno.h>
 # include <sys/acl.h>
+# include <sys/xattr.h>
 
 typedef struct	s_afile
 {

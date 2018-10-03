@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/01 16:51:33 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/02 17:30:29 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			b_ls(const char *flags, const char *folder, int argc)
 	t_afile			*filelist;
 	char			*pateka;
 
-	xfile = NULL;
+	//xfile = NULL;
 	filelist = NULL;
 	if ((dirstrm = opendir(folder)) == NULL)
 		return (printf("b_ls: %s: %s\n", folder, strerror(errno)));
@@ -37,8 +37,8 @@ int			b_ls(const char *flags, const char *folder, int argc)
 	blsprinter(filelist, flags);
 	clearlist(filelist);
 	closedir(dirstrm);
-	if (errno)
-		printf("\n%s", strerror(errno));
+	// if (errno)
+	// 	printf("\n%s", strerror(errno));
 	return (0);
 }
 
@@ -80,7 +80,7 @@ int			main(int argc, char **argv)
 	i = 1;
 	flag = NULL;
 	if (argc < 2)
-		b_ls(flag, ".", argc);
+		b_ls("", ".", argc);
 	else if (argv[1][0] == '-')
 	{
 		if ((flag = argv[1]) && !flagchecker(argv[1]))
