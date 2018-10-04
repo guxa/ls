@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 16:58:18 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/27 21:42:28 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/04 15:54:55 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	clearlist(t_afile *head)
 
 	while (head)
 	{
+		free(head->user);
+		free(head->group);
 		free(head->name);
 		temp = head;
 		head = head->next;

@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/29 00:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/03 16:40:42 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/04 15:56:04 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ t_afile		*fillelem(const char *path, char const *fname)
 	userx = getpwuid(atribute.st_uid);
 	groupx = getgrgid(atribute.st_gid);
 	thefile->permisii = atribute.st_mode;
-	thefile->xattr = ' '; // xattr(path, thefile); //
+	thefile->xattr = ' '; // xattr(path, thefile);
 	thefile->linksnum = atribute.st_nlink;
-	thefile->user = userx->pw_name;
-	thefile->group = groupx->gr_name;
+	thefile->user = ft_strdup(userx->pw_name);
+	thefile->group = ft_strdup(groupx->gr_name);
 	thefile->fsize = atribute.st_size;
 	thefile->timemod = atribute.st_mtime;
-	thefile->name = ft_strdup(fname); //(char *)fname; imav problemi so ova
+	thefile->name = ft_strdup(fname);
 	thefile->type = (fname[0] == '.' ? 'a' : 'b');
 	thefile->blocks = atribute.st_blocks;
 	thefile->next = NULL;
