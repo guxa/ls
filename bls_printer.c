@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 21:08:57 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/01 17:47:24 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/03 16:40:42 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ void		timeprinter(t_afile *dfile)
 
 	sixmonths = 15768000;
 	current_time = time(NULL);
-	if (current_time - dfile->timemodified > sixmonths)
+	if (current_time - dfile->timemod > sixmonths)
 	{
-		printf("%.7s", &(ctime(&dfile->timemodified)[4]));
-		printf("%5.4s ", &(ctime(&dfile->timemodified)[20]));
+		printf("%.7s", &(ctime(&dfile->timemod)[4]));
+		printf("%5.4s ", &(ctime(&dfile->timemod)[20]));
 	}
 	else
-		printf("%.12s ", &(ctime(&dfile->timemodified)[4]));
+		printf("%.12s ", &(ctime(&dfile->timemod)[4]));
 	if (S_ISLNK(dfile->permisii))
 		printf("%-s -> %s\n", dfile->name, dfile->linkedfile);
 	else

@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 16:49:08 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/01 16:52:12 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/03 17:16:52 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,19 @@ int			sortjunk(char **argv, int argc, int flag, int x)
 			closedir(xstream);
 	}
 	return (x == 0 ? i : x);
+}
+
+int			cmptime(t_afile *curr, t_afile *element)
+{
+	if (curr->timemod - element->timemod < 0)
+		return (1);
+	else if (curr->timemod - element->timemod == 0)
+	{
+		if (curr->fnano.tv_nsec - element->fnano.tv_nsec < 0)
+			return (1);
+		if (curr->fnano.tv_nsec == element->fnano.tv_nsec
+			&& (ft_strcmp(curr->name, element->name) > 0))
+			return (1);
+	}
+	return (0);
 }

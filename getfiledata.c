@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/29 00:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/30 16:17:57 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/03 16:40:42 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,12 @@ t_afile		*fillelem(const char *path, char const *fname)
 	thefile->user = userx->pw_name;
 	thefile->group = groupx->gr_name;
 	thefile->fsize = atribute.st_size;
-	thefile->timemodified = atribute.st_mtime;
+	thefile->timemod = atribute.st_mtime;
 	thefile->name = ft_strdup(fname); //(char *)fname; imav problemi so ova
 	thefile->type = (fname[0] == '.' ? 'a' : 'b');
 	thefile->blocks = atribute.st_blocks;
 	thefile->next = NULL;
+	thefile->fnano = atribute.st_mtimespec;
 	if (S_ISLNK(thefile->permisii))
 		getslink(path, thefile);
 	return (thefile);

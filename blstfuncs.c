@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 19:41:48 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/30 22:11:54 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/03 17:14:37 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,12 @@ void	timesort(t_afile **head, t_afile *element)
 
 	prev = NULL;
 	curr = *head;
-	while (curr->next && (curr->timemodified - element->timemodified > 0))
+	while (curr->next && cmptime(element, curr))
 	{
 		prev = curr;
 		curr = curr->next;
 	}
-	if (curr->timemodified - element->timemodified < 0 || (curr->timemodified -
-	element->timemodified == 0 && ft_strcmp(curr->name, element->name) > 0))
+	if (cmptime(curr, element))
 	{
 		if (!prev)
 			*head = element;
@@ -115,12 +114,12 @@ void	rtimesort(t_afile **head, t_afile *element)
 
 	prev = NULL;
 	curr = *head;
-	while (curr->next && (curr->timemodified - element->timemodified <= 0))
+	while (curr->next && cmptime(curr, element))
 	{
 		prev = curr;
 		curr = curr->next;
 	}
-	if (curr->timemodified - element->timemodified >= 0)
+	if (cmptime(element, curr))
 	{
 		if (!prev)
 			*head = element;

@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 19:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/01 17:12:31 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/03 17:15:28 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@
 
 typedef struct	s_afile
 {
+	struct timespec		fnano;
 	mode_t				permisii;
 	char				*name;
-	int					linksnum;	
+	int					linksnum;
 	char				*user;
 	char				*group;
 	size_t				fsize;
-	time_t				timemodified;
+	time_t				timemod;
 	char				type;
 	char				xattr;
 	blkcnt_t			blocks;
@@ -46,6 +47,7 @@ typedef struct	s_afile
 
 }				t_afile;
 
+int				cmptime(t_afile *curr, t_afile *element);
 int				sortjunk(char **argv, int argc, int flag, int x);
 void			sortargvs(char **argv, int argc, int flag);
 char			xattr(const char *path, t_afile *thefile);
