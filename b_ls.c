@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/02 17:30:29 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/04 17:44:27 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			flagchecker(const char *flags)
 		{
 			printf("b_ls: illegal option -- %c\n", flags[i]);
 			printf("usage: ls [-alrt] [file ...]\n");
-			return (0);
+			exit(0);
 		}
 	return (1);
 }
@@ -78,17 +78,17 @@ int			main(int argc, char **argv)
 	char	*flag;
 
 	i = 1;
-	flag = NULL;
+	flag = ft_newstr(50);
 	if (argc < 2)
 		b_ls("", ".", argc);
-	else if (argv[1][0] == '-')
+	while (i < argc && argv[i][0] == '-')
 	{
-		if ((flag = argv[1]) && !flagchecker(argv[1]))
-			return (0);
+		if (flagchecker(argv[i]))
+			ft_strcat(flag, argv[i]);
 		i++;
 	}
-	if (argc == 2 && flag)
-		b_ls(argv[1], ".", argc);
+	if (i == argc && flag)
+		b_ls(flag, ".", argc);
 	if (!flag)
 		flag = "";
 	sortargvs(argv, argc, i);
