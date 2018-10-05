@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/04 17:44:27 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/04 18:09:51 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int			main(int argc, char **argv)
 			ft_strcat(flag, argv[i]);
 		i++;
 	}
-	if (i == argc && flag)
+	if (i == argc && argc != 1)
 		b_ls(flag, ".", argc);
 	if (!flag)
 		flag = "";
