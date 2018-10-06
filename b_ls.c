@@ -6,21 +6,21 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/04 18:09:51 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/05 21:47:50 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			b_ls(const char *flags, const char *folder, int argc)
+int			b_ls(const char *flags, const char *folder, int argc, char *pateka)
 {
 	DIR				*dirstrm;
 	struct dirent	*ent;
 	t_afile			*xfile;
 	t_afile			*filelist;
-	char			*pateka;
+	t_afile			*childlist;
 
-	//xfile = NULL;
+	childlist = NULL;
 	filelist = NULL;
 	if ((dirstrm = opendir(folder)) == NULL)
 		return (printf("b_ls: %s: %s\n", folder, strerror(errno)));
@@ -29,16 +29,14 @@ int			b_ls(const char *flags, const char *folder, int argc)
 		pateka = getfilepath(folder, ent->d_name);
 		xfile = fillelem(pateka, ent->d_name);
 		blslist(&filelist, xfile, flags);
+		if (strchr(flags, 'R') && S_ISDIR(xfile->permisii))
+			maddchild(&childlist, pateka, flags, ent->d_name);
 		free(pateka);
 		ent++;
 	}
-	if (argc > 3 || (argc == 3 && ft_strlen(flags) < 1))
-		printf("%s:\n", folder);
-	blsprinter(filelist, flags);
-	clearlist(filelist);
+	pending(filelist, flags, argc, folder);
+	recbls(childlist, flags);
 	closedir(dirstrm);
-	// if (errno)
-	// 	printf("\n%s", strerror(errno));
 	return (0);
 }
 
@@ -63,10 +61,10 @@ int			flagchecker(const char *flags)
 	i = 0;
 	while (flags[++i])
 		if (flags[i] != 'a' && flags[i] != 'l' && flags[i] != 'r'
-			&& flags[i] != 't')
+			&& flags[i] != 't' && flags[i] != 'R')
 		{
 			printf("b_ls: illegal option -- %c\n", flags[i]);
-			printf("usage: ls [-alrt] [file ...]\n");
+			printf("usage: ls [-Ralrt] [file ...]\n");
 			exit(0);
 		}
 	return (1);
@@ -76,11 +74,13 @@ int			main(int argc, char **argv)
 {
 	int		i;
 	char	*flag;
+	char	*path;
 
+	path = NULL;
 	i = 1;
 	flag = ft_newstr(50);
 	if (argc < 2)
-		b_ls("", ".", argc);
+		b_ls("", ".", argc, path);
 	while (i < argc && argv[i][0] == '-')
 	{
 		if (flagchecker(argv[i]))
@@ -88,31 +88,13 @@ int			main(int argc, char **argv)
 		i++;
 	}
 	if (i == argc && argc != 1)
-		b_ls(flag, ".", argc);
-	if (!flag)
-		flag = "";
+		b_ls(flag, ".", argc, path);
 	sortargvs(argv, argc, i);
 	while (i < argc)
 	{
-		if (!b_ls(flag, argv[i], argc) && i + 1 != argc)
+		if (!b_ls(flag, argv[i], argc, path) && i + 1 != argc)
 			printf("\n");
 		i++;
 	}
 	exit(0);
 }
-
-
-/*
-https://stackoverflow.com/questions/9101590/fprintf-and-ctime-without-passing-n-from-ctime
-https://openclassrooms.com/forum/sujet/segment-fault-pour-getpwuid-et-getgrgid
-https://stackoverflow.com/questions/10446526/get-last-modified-time-of-file-in-linux
-https://linux.die.net/man/2/stat
-http://man7.org/linux/man-pages/man3/ctime.3.html
-https://www.garron.me/en/go2linux/ls-file-permissions.html
-*/
-
-/*
-** linija 121 (vo while) e za da printat ime na folder 
-** i prazno mesto megu folderi ko ke imat pojke folderi, 
-** ama ne ko ke imat flag i 1 folder
-*/ 

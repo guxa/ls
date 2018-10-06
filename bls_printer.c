@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 21:08:57 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/03 16:40:42 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/05 22:05:36 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		blsprinter(t_afile *filelist, const char *flags)
 		while (filelist)
 		{
 			printpermisii(filelist->permisii);
-			printf("%c %2d ", filelist->xattr, filelist->linksnum);
+			printf("  %2d ", filelist->linksnum);
 			printf("%-s  %-s  ", filelist->user, filelist->group);
 			printf("%*zu ", sizewidth, filelist->fsize);
 			timeprinter(filelist);

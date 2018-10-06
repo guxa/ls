@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 19:41:48 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/03 17:14:37 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/05 21:54:45 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	blslist(t_afile **head, t_afile *element, const char *flags)
 {
 	if (!element || (!(ft_strchr(flags, 'a')) && element->type == 'a'))
-		return ;
+		return (clearlist(element));
 	if (*head == NULL)
 	{
 		*head = element;

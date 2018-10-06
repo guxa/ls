@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 19:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/03 17:15:28 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/05 22:07:03 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,17 @@ typedef struct	s_afile
 	size_t				fsize;
 	time_t				timemod;
 	char				type;
-	char				xattr;
 	blkcnt_t			blocks;
 	char				linkedfile[1024];
 	struct s_afile		*next;
-
+	char				*pateka;
 }				t_afile;
 
+void			pending(t_afile *flist, const char *flags, int argc,
+				const char *folder);
+void			maddchild(t_afile **head, const char *path,
+				const char *flags, const char *fname);
+void			recbls(t_afile *childlist, const char *flags);
 int				cmptime(t_afile *curr, t_afile *element);
 int				sortjunk(char **argv, int argc, int flag, int x);
 void			sortargvs(char **argv, int argc, int flag);
@@ -66,7 +70,8 @@ void			revabcsort(t_afile **head, t_afile *element);
 void			abcsort(t_afile **head, t_afile *element);
 void			blslist(t_afile **head, t_afile *element, const char *flags);
 t_afile			*fillelem(const char *path, char const *fname);
-int				b_ls(const char *flags, const char *folder, int argc);
+int				b_ls(const char *flags, const char *folder, int argc,
+				char *pateka);
 char			*ft_strcat(char *dest, const char *string);
 
 int				numberhandler(void *number, char type);
