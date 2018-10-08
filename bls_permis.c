@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 18:09:33 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/30 20:46:59 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/07 16:09:25 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void		printpermisii(mode_t filemode)
 	permisii[8] = (filemode & S_IXOTH) ? 'x' : '-';
 	if (filemode & S_ISUID)
 		permisii[2] = (filemode & S_IXUSR) ? 's' : 'S';
-	else if (filemode & S_ISGID)
-		permisii[5] = (filemode & S_IXGRP) ? 's' : 'l';
-	else if (filemode & S_ISVTX)
+	if (filemode & S_ISGID)
+		permisii[5] = (filemode & S_IXGRP) ? 's' : 'S';
+	if (filemode & S_ISVTX)
 		permisii[8] = (filemode & S_IXOTH) ? 't' : 'T';
 	printf("%s", permisii);
 	free(permisii);
