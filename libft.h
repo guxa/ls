@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 19:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/05 22:07:03 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/07 18:15:59 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct	s_afile
 	char				type;
 	blkcnt_t			blocks;
 	char				linkedfile[1024];
+	unsigned int		major;
+	unsigned int		minor;
 	struct s_afile		*next;
 	char				*pateka;
 }				t_afile;

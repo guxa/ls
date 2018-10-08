@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/29 00:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/07 17:02:46 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/07 21:27:01 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_afile		*fillelem(const char *path, char const *fname)
 	thefile = (t_afile*)malloc(sizeof(t_afile));
 	if (lstat(path, &atribute) != 0 || !thefile)
 		return (NULL);
+	thefile->major = major(atribute.st_rdev);
+	thefile->minor = minor(atribute.st_rdev);
 	thefile->permisii = atribute.st_mode;
 	thefile->linksnum = atribute.st_nlink;
 	thefile->user = ft_strdup(getpwuid(atribute.st_uid)->pw_name);

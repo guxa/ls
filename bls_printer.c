@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 21:08:57 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/05 22:05:36 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/07 21:18:26 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@
 void		blsprinter(t_afile *filelist, const char *flags)
 {
 	int sizewidth;
-	int blocks;
 
-	blocks = 0;
 	if (ft_strchr(flags, 'l'))
 	{
-		blocks = blockcounter(filelist);
 		sizewidth = sizechecker(filelist);
-		(blocks > 0 ? printf("total %d\n", blocks) : 0);
+		printf("total %zu\n", blockcounter(filelist));
 		while (filelist)
 		{
 			printpermisii(filelist->permisii);
 			printf("  %2d ", filelist->linksnum);
 			printf("%-s  %-s  ", filelist->user, filelist->group);
-			printf("%*zu ", sizewidth, filelist->fsize);
+			if (S_ISCHR(filelist->permisii) || S_ISBLK(filelist->permisii))
+				printf("%u, %u ", filelist->major, filelist->minor);
+			else
+				printf("%*zu ", sizewidth, filelist->fsize);
 			timeprinter(filelist);
 			filelist = filelist->next;
 		}
