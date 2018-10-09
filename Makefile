@@ -6,7 +6,7 @@
 #    By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/14 16:52:43 by jguleski          #+#    #+#              #
-#    Updated: 2018/10/01 16:52:38 by jguleski         ###   ########.fr        #
+#    Updated: 2018/10/09 13:18:28 by jguleski         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,5 +65,6 @@ clean:
 
 fclean:	clean
 		/bin/rm -f $(NAME)
+		@rm -f b_ls
 
 re: fclean all
