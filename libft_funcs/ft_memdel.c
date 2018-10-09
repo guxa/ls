@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 00:45:32 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/24 00:47:56 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/09 13:09:36 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_memdel(void **ap)
 {
-	if(ap)
+	if (ap)
 	{
 		free(*ap);
 		*ap = NULL;
-	}	
+	}
 }

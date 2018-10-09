@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 18:17:34 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/23 16:53:04 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/09/25 20:32:13 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** 	izbrisana validaicja za base da e pomalo od 2 od linija 36
 */
 
-#include "libft.h"
+#include <libft.h>
 
 char	*ft_itoa_base(long number, int base)
 {
@@ -28,7 +28,6 @@ char	*ft_itoa_base(long number, int base)
 	char	*numtable;
 	char	*string;
 
-	
 	numtable = ft_newstr(16);
 	numtable = "0123456789abcdef";
 	size = countdigits(number, base);
@@ -61,33 +60,4 @@ int		countdigits(long number, int base)
 		number = number / base;
 	}
 	return (size);
-}
-
-char	*ft_itoa(int number, int base)
-{
-	int		size;
-	unsigned long	newnumber;
-	char	*numtable;
-	char	*string;
-
-	
-	numtable = ft_newstr(16);
-	numtable = "0123456789abcdef";
-	size = countdigits(number, base);
-	newnumber = number;
-	newnumber = (number > 0 ? number : -newnumber);
-	// if (number < 0 && base == 10)
-	// 	size++;
-	string = ft_newstr((size > 0 ? size : 1));
-	if (!string)
-		return (NULL);
-	(string ? string[0] = '0' : 0);
-	while (size > 0)
-	{
-		string[--size] = numtable[newnumber % base];
-		newnumber = newnumber / base;
-	}
-	// if (number < 0 && base == 10)
-	// 	string[0] = '-';
-	return (string);
 }

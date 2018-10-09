@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 19:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/09/21 17:45:23 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/10/09 13:05:45 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct	s_strlist
 	struct s_strlist	*next;
 
 }				t_strlist;
-
 
 int				numberhandler(void *number, char type);
 int				myprinter(const char *str, int start, int end);
