@@ -6,15 +6,11 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 16:58:18 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/05 21:48:10 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 00:07:59 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-/*
-** dali da se podajt **head vo clearlist, i na kraj *head = NULL;
-*/
 
 void	clearlist(t_afile *head)
 {
@@ -46,20 +42,24 @@ void	recbls(t_afile *childlist, const char *flags)
 	clearlist(temp);
 }
 
-void	maddchild(t_afile **head, const char *path,
+int		add_child(t_afile **head, const char *path,
 const char *flags, const char *fname)
 {
 	t_afile *rxfile;
 
-	rxfile = fillelem(path, fname);
+	if (ft_strcmp(fname, ".") == 0 || ft_strcmp(fname, "..") == 0)
+		return (-1);
+	if ((rxfile = fillelem(path, fname)) == NULL)
+		return (-1);
 	blslist(head, rxfile, flags);
-	return ;
+	return (0);
 }
 
-void	pending(t_afile *flist, const char *flags, int argc, const char *folder)
+void	pending(t_afile *flist, const char *flags, int argc, 
+				const char *folder, DIR *dirstrm)
 {
-	if (argc > 3 || (argc == 3 && ft_strlen(flags) < 1))
+	if (dirstrm && (argc > 3 || (argc == 3 && ft_strlen(flags) < 1)))
 		printf("%s:\n", folder);
-	blsprinter(flist, flags);
+	blsprinter(flist, flags, (dirstrm == 0 ? 0 : 1));
 	clearlist(flist);
 }

@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 19:41:48 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/05 21:54:45 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 14:42:57 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,13 @@ void	blslist(t_afile **head, t_afile *element, const char *flags)
 		*head = element;
 		return ;
 	}
-	if (ft_strchr(flags, 't') && ft_strchr(flags, 'r'))
+	else if (ft_strchr(flags, 'f'))
+	{
+		while ((*head)->next)
+			*head = (*head)->next;
+		(*head)->next = element;
+	}
+	else if (ft_strchr(flags, 't') && ft_strchr(flags, 'r'))
 		rtimesort(head, element);
 	else if (flags && ft_strchr(flags, 'r'))
 		revabcsort(head, element);

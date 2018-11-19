@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 19:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/07 18:15:59 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 00:08:15 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ typedef struct	s_afile
 }				t_afile;
 
 void			pending(t_afile *flist, const char *flags, int argc,
-				const char *folder);
-void			maddchild(t_afile **head, const char *path,
+				const char *folder, DIR *dirstrm);
+int				add_child(t_afile **head, const char *path,
 				const char *flags, const char *fname);
 void			recbls(t_afile *childlist, const char *flags);
 int				cmptime(t_afile *curr, t_afile *element);
@@ -66,7 +66,7 @@ size_t			sizechecker(t_afile *alist);
 void			printpermisii(mode_t filemode);
 char			*getfilepath(const char *folder, const char *filename);
 void			timeprinter(t_afile *dfile);
-void			blsprinter(t_afile *filelist, const char *flags);
+void			blsprinter(t_afile *filelist, const char *flags, int type);
 int				flagchecker(const char *flags);
 void			revabcsort(t_afile **head, t_afile *element);
 void			abcsort(t_afile **head, t_afile *element);

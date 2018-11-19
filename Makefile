@@ -6,7 +6,7 @@
 #    By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/14 16:52:43 by jguleski          #+#    #+#              #
-#    Updated: 2018/10/09 13:18:28 by jguleski         ###   ########.fr        #
+#    Updated: 2018/11/18 22:51:01 by jguleski         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ HEADER = includes
 OBJECTS = $(SRC:%.c=%.o)
 
 all: $(NAME)
-		gcc -Wall -Wextra -Werror -I. $(BLS) $(NAME) -o b_ls
+		gcc -Wall -Wextra -Werror -I. $(BLS) $(NAME) -o ft_ls
 
 %.o: %.c
 		@gcc -Wall -Wextra -Werror -c -I$(BLIBFT) $< -o $@

@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 21:08:57 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/07 21:18:26 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 00:47:30 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,32 @@
 
 #include "libft.h"
 
-void		blsprinter(t_afile *filelist, const char *flags)
+void		blsprinter(t_afile *list, const char *flags, int ftype)
 {
 	int sizewidth;
 
-	if (ft_strchr(flags, 'l'))
+	if (ft_strchr(flags, 'l') || ft_strchr(flags, 'g'))
 	{
-		sizewidth = sizechecker(filelist);
-		printf("total %zu\n", blockcounter(filelist));
-		while (filelist)
+		sizewidth = sizechecker(list);
+		(ftype == 0 ? 0 : printf("total %zu\n", blockcounter(list)));
+		while (list)
 		{
-			printpermisii(filelist->permisii);
-			printf("  %2d ", filelist->linksnum);
-			printf("%-s  %-s  ", filelist->user, filelist->group);
-			if (S_ISCHR(filelist->permisii) || S_ISBLK(filelist->permisii))
-				printf("%u, %u ", filelist->major, filelist->minor);
+			printpermisii(list->permisii);
+			printf("  %2d ", list->linksnum);
+			printf("%-s  %-s  ", (ft_strchr(flags, 'g') ? "" : list->user), list->group);
+			if (S_ISCHR(list->permisii) || S_ISBLK(list->permisii))
+				printf("%u, %u ", list->major, list->minor);
 			else
-				printf("%*zu ", sizewidth, filelist->fsize);
-			timeprinter(filelist);
-			filelist = filelist->next;
+				printf("%*zu ", sizewidth, list->fsize);
+			timeprinter(list);
+			list = list->next;
 		}
 	}
 	else
-		while (filelist)
+		while (list)
 		{
-			printf("%*s \n", -15, filelist->name);
-			filelist = filelist->next;
+			printf("%*s \n", -15, list->name);
+			list = list->next;
 		}
 }
 
