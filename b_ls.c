@@ -6,11 +6,11 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 14:44:46 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 15:31:32 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ftls.h"
 
 int			b_ls(const char *flags, const char *folder, int argc, char *pateka)
 {
@@ -23,7 +23,7 @@ int			b_ls(const char *flags, const char *folder, int argc, char *pateka)
 	childlist = NULL;
 	filelist = NULL;
 	dirstrm = NULL;
-	if ((ft_strchr(flags, 'd') || (dirstrm = opendir(folder)) == NULL) && 
+	if ((ft_strchr(flags, 'd') || (dirstrm = opendir(folder)) == NULL) &&
 			add_child(&filelist, folder, flags, folder))
 		return (printf("b_ls: %s: %s\n", folder, strerror(errno)));
 	while (dirstrm && (ent = readdir(dirstrm)) != NULL)
@@ -36,7 +36,7 @@ int			b_ls(const char *flags, const char *folder, int argc, char *pateka)
 		free(pateka);
 		ent++;
 	}
-	pending(filelist, flags, argc, folder, dirstrm);
+	pending(filelist, flags, (dirstrm == NULL ? 0 : argc), folder);
 	recbls(childlist, flags);
 	return (dirstrm == NULL ? 1 : closedir(dirstrm));
 }
@@ -45,7 +45,7 @@ char		*getfilepath(const char *folder, const char *filename)
 {
 	char *pateka;
 
-	pateka = ft_newstr(ft_strlen(folder) + ft_strlen(filename) + 1);
+	pateka = ft_strnew(ft_strlen(folder) + ft_strlen(filename) + 1);
 	if (pateka)
 	{
 		ft_strcpy(pateka, folder);
@@ -55,21 +55,24 @@ char		*getfilepath(const char *folder, const char *filename)
 	return (pateka);
 }
 
-int			flagchecker(const char *flags)
+void		flagchecker(char **flags, const char *arg)
 {
-	int i;
+	int		i;
+	char	*temp;
 
 	i = 0;
-	while (flags[++i])
-		if (flags[i] != 'a' && flags[i] != 'l' && flags[i] != 'r'
-			&& flags[i] != 't' && flags[i] != 'R' && flags[i] != 'd'
-			&& flags[i] != 'g' && flags[i] != 'f')
+	while (arg[++i])
+		if (arg[i] != 'a' && arg[i] != 'l' && arg[i] != 'r'
+			&& arg[i] != 't' && arg[i] != 'R' && arg[i] != 'd'
+			&& arg[i] != 'g' && arg[i] != 'f')
 		{
-			printf("b_ls: illegal option -- %c\n", flags[i]);
+			printf("b_ls: illegal option -- %c\n", arg[i]);
 			printf("usage: ls [-Ralrtdgf] [file ...]\n");
 			exit(0);
 		}
-	return (1);
+	temp = *flags;
+	*flags = ft_strjoin(*flags, arg);
+	free(temp);
 }
 
 int			main(int argc, char **argv)
@@ -80,12 +83,13 @@ int			main(int argc, char **argv)
 
 	path = NULL;
 	i = 0;
-	flag = ft_newstr(1); // don't forget to use strjoin instead
+	flag = ft_strnew(1);
 	if (argc < 2)
 		b_ls("", ".", argc, path);
 	while (++i < argc && argv[i][0] == '-' && argv[i][1] != '-')
-		if (flagchecker(argv[i]))
-			ft_strcat(flag, argv[i]); // don't forget to use strjoin instead
+		flagchecker(&flag, argv[i]);
+	if (ft_strchr(flag, 'f'))
+		flagchecker(&flag, "-a");
 	if (i < argc && argv[i][0] == '-' && argv[i][1] == '-')
 		i++;
 	if (i == argc && argc != 1)

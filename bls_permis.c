@@ -6,11 +6,11 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 18:09:33 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/07 16:09:25 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 15:04:28 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ftls.h"
 
 void		filetype(mode_t filemode)
 {
@@ -35,7 +35,7 @@ void		printpermisii(mode_t filemode)
 	char *permisii;
 
 	filetype(filemode);
-	permisii = ft_newstr(9);
+	permisii = ft_strnew(9);
 	permisii[0] = (filemode & S_IRUSR) ? 'r' : '-';
 	permisii[1] = (filemode & S_IWUSR) ? 'w' : '-';
 	permisii[2] = (filemode & S_IXUSR) ? 'x' : '-';

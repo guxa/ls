@@ -6,11 +6,11 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/29 00:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/07 21:27:01 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 15:02:19 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ftls.h"
 
 t_afile		*fillelem(const char *path, char const *fname)
 {

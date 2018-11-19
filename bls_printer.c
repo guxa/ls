@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 21:08:57 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 00:47:30 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 15:02:22 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** ne znam kako ke prajme (:
 */
 
-#include "libft.h"
+#include "ftls.h"
 
 void		blsprinter(t_afile *list, const char *flags, int ftype)
 {

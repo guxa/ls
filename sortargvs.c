@@ -6,11 +6,11 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 16:49:08 by jguleski          #+#    #+#             */
-/*   Updated: 2018/10/03 17:16:52 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 15:02:50 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ftls.h"
 
 void		sortargvs(char **argv, int argc, int flag)
 {

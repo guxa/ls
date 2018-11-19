@@ -6,11 +6,11 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 16:58:18 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 00:07:59 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 15:33:38 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ftls.h"
 
 void	clearlist(t_afile *head)
 {
@@ -55,11 +55,11 @@ const char *flags, const char *fname)
 	return (0);
 }
 
-void	pending(t_afile *flist, const char *flags, int argc, 
-				const char *folder, DIR *dirstrm)
+void	pending(t_afile *flist, const char *flags, int argc,
+				const char *folder)
 {
-	if (dirstrm && (argc > 3 || (argc == 3 && ft_strlen(flags) < 1)))
+	if ((argc > 3 || (argc == 3 && ft_strlen(flags) < 1)))
 		printf("%s:\n", folder);
-	blsprinter(flist, flags, (dirstrm == 0 ? 0 : 1));
+	blsprinter(flist, flags, argc);
 	clearlist(flist);
 }

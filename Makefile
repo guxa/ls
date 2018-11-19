@@ -6,7 +6,7 @@
 #    By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/14 16:52:43 by jguleski          #+#    #+#              #
-#    Updated: 2018/11/18 22:51:01 by jguleski         ###   ########.fr        #
+#    Updated: 2018/11/19 15:01:39 by jguleski         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,34 +19,15 @@ BLS = blstfuncs.c \
 	  cleanlist.c \
 	  getfiledata.c \
 	  bls_permis.c \
-	  ft_strcat.c \
 	  sortargvs.c \
 
-SRC = $(BLIBFT)b_printf.c \
-	  $(BLIBFT)bprintf_parser.c \
-	  $(BLIBFT)findarg.c \
-	  $(BLIBFT)ft_putstr.c \
-	  $(BLIBFT)ft_newstr.c \
-	  $(BLIBFT)ft_itoa.c \
-	  $(BLIBFT)ft_isdigit.c \
-	  $(BLIBFT)ft_memset.c \
-	  $(BLIBFT)ft_strchr.c \
-	  $(BLIBFT)ft_strcmp.c \
-	  $(BLIBFT)ft_strcpy.c \
-	  $(BLIBFT)ft_strdup.c \
-	  $(BLIBFT)ft_strlen.c \
-	  $(BLIBFT)ft_strncpy.c \
-	  $(BLIBFT)ft_tolower.c \
-	  $(BLIBFT)ft_toupper.c \
-	  $(BLIBFT)ft_memdel.c \
-	  #../bprintf-main.c \
-	  #testmain.c \
-	  #$(BLIBFT)imetonafunkcijata
-HEADER = includes
+LIB = libft/libft.a
+
+INCLUDES = -I. -Ilibft/includes
 OBJECTS = $(SRC:%.c=%.o)
 
 all: $(NAME)
-		gcc -Wall -Wextra -Werror -I. $(BLS) $(NAME) -o ft_ls
+		gcc -Wall -Wextra -Werror $(INCLUDES) $(BLS) $(LIB) -o ft_ls
 
 %.o: %.c
 		@gcc -Wall -Wextra -Werror -c -I$(BLIBFT) $< -o $@
@@ -58,7 +39,7 @@ $(NAME): $(OBJECTS)
 		@#gcc -Wall -Wextra -Werror -o test $(SRC) -I.
 
 debug:
-		gcc -Wall -Wextra -Werror -g -I. $(BLS) $(NAME) -o test
+		gcc -Wall -Wextra -Werror -g $(INCLUDES) $(BLS) $(LIB) -o test
 
 clean:
 		/bin/rm -f $(OBJECTS)

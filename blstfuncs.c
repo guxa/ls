@@ -6,14 +6,16 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 19:41:48 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 14:42:57 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 15:21:37 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ftls.h"
 
 void	blslist(t_afile **head, t_afile *element, const char *flags)
 {
+	t_afile	*temp;
+
 	if (!element || (!(ft_strchr(flags, 'a')) && element->type == 'a'))
 		return (clearlist(element));
 	if (*head == NULL)
@@ -23,9 +25,10 @@ void	blslist(t_afile **head, t_afile *element, const char *flags)
 	}
 	else if (ft_strchr(flags, 'f'))
 	{
-		while ((*head)->next)
-			*head = (*head)->next;
-		(*head)->next = element;
+		temp = *head;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = element;
 	}
 	else if (ft_strchr(flags, 't') && ft_strchr(flags, 'r'))
 		rtimesort(head, element);
