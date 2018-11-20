@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 22:11:38 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 23:15:35 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			b_ls(const char *flags, const char *folder, int argc, char *pateka)
 		pateka = getfilepath(folder, ent->d_name);
 		xfile = fillelem(pateka, ent->d_name, g_uflag);
 		blslist(&filelist, xfile, flags);
-		if (ft_strchr(flags, 'R') && S_ISDIR(xfile->permisii))
+		if (g_rflag && S_ISDIR(xfile->permisii))
 			add_child(&childlist, pateka, flags, ent->d_name);
 		free(pateka);
 		ent++;
@@ -84,7 +84,7 @@ int			main(int argc, char **argv)
 	flag = ft_strnew(1);
 	if (argc < 2)
 		b_ls("", ".", argc, path);
-	while (++i < argc && argv[i][0] == '-' && argv[i][1] != '-')
+	while (++i < argc && argv[i][0] == '-' && argv[i][1] && argv[i][1] != '-')
 		flagchecker(&flag, argv[i]);
 	if (ft_strchr(flag, 'f'))
 		flagchecker(&flag, "-a");

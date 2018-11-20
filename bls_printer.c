@@ -6,18 +6,9 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 21:08:57 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 22:21:49 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 23:26:48 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-** logikata vo timeprinte, so .12 se kazvit deka max 12 karakteri ke isprintat
-** od pocetok na stringot. a so &str[4], mu davam pointer da pocnit od 4 poz
-** i so to da go preskoknit denot so zboroj pr. WED i space-ot posle nego
-** $$$ VAZNO: funk Printpermisii mojt da se skratit, ako primat us 1 parametar
-** od tip char*, i pri povik ke i se dajt ft_newstr(9), samo so FREE togas
-** ne znam kako ke prajme (:
-*/
 
 #include "ftls.h"
 
@@ -33,7 +24,8 @@ void		blsprinter(t_afile *list, const char *flags, int ftype)
 		{
 			printpermisii(list->permisii);
 			ft_printf("  %2d ", list->linksnum);
-			ft_printf("%-s  %-s  ", (ft_strchr(flags, 'g') ? "" : list->user), list->group);
+			ft_printf("%-s  %-s  ", (ft_strchr(flags, 'g') ? "" : list->user),
+						list->group);
 			if (S_ISCHR(list->permisii) || S_ISBLK(list->permisii))
 				ft_printf("%u, %u ", list->major, list->minor);
 			else
@@ -42,12 +34,11 @@ void		blsprinter(t_afile *list, const char *flags, int ftype)
 			list = list->next;
 		}
 	}
-	else
-		while (list)
-		{
-			ft_printf("%s \n", list->name);
-			list = list->next;
-		}
+	while (list)
+	{
+		ft_printf("%s \n", list->name);
+		list = list->next;
+	}
 }
 
 size_t		sizechecker(t_afile *alist)
@@ -77,6 +68,12 @@ size_t		blockcounter(t_afile *alist)
 	}
 	return (lsize);
 }
+
+/*
+** logikata vo timeprinte, so .12 se kazvit deka max 12 karakteri ke isprintat
+** od pocetok na stringot. a so &str[4], mu davam pointer da pocnit od 4 poz
+** i so to da go preskoknit denot so zboroj pr. WED i space-ot posle nego
+*/
 
 void		timeprinter(t_afile *dfile)
 {

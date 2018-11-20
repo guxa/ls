@@ -6,7 +6,7 @@
 #    By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/14 16:52:43 by jguleski          #+#    #+#              #
-#    Updated: 2018/11/19 22:12:00 by jguleski         ###   ########.fr        #
+#    Updated: 2018/11/19 22:47:24 by jguleski         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ $(OBJECTS_DIR)%.o: %.c
 $(OBJECTS_DIR):
 	@mkdir -p $(OBJECTS_DIR)
 
-debug:
+debug: $(LIBFT)
 		gcc $(FLAGS) -g $(INCLUDES) $(BLS) $(LIBFT) -o test
 
 clean:
