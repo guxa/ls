@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 16:58:18 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 23:15:35 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/20 00:38:04 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ const char *flags, const char *fname)
 {
 	t_afile *rxfile;
 
+	if (errno)
+		return (-1);
 	if (ft_strcmp(fname, ".") == 0 || ft_strcmp(fname, "..") == 0)
 		return (-1);
 	if ((rxfile = fillelem(path, fname, g_uflag)) == NULL)
@@ -58,6 +60,7 @@ const char *flags, const char *fname)
 void	init_lists(t_afile **filelist, t_afile **childlist, DIR **dirstrm,
 					const char *flags)
 {
+	errno = 0;
 	g_uflag = (ft_strchr(flags, 'u') == NULL ? '0' : 'u');
 	g_rflag = (ft_strchr(flags, 'R') == NULL ? 0 : 1);
 	*childlist = NULL;
