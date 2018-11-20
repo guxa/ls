@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 18:09:33 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 15:04:28 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 22:11:38 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 void		filetype(mode_t filemode)
 {
 	if (S_ISDIR(filemode))
-		printf("%c", 'd');
+		ft_printf("%c", 'd');
 	else if (S_ISBLK(filemode))
-		printf("%c", 'b');
+		ft_printf("%c", 'b');
 	else if (S_ISCHR(filemode))
-		printf("%c", 'c');
+		ft_printf("%c", 'c');
 	else if (S_ISFIFO(filemode))
-		printf("%c", 'p');
+		ft_printf("%c", 'p');
 	else if (S_ISREG(filemode))
-		printf("%c", '-');
+		ft_printf("%c", '-');
 	else if (S_ISLNK(filemode))
-		printf("%c", 'l');
+		ft_printf("%c", 'l');
 	else if (S_ISSOCK(filemode))
-		printf("%c", 's');
+		ft_printf("%c", 's');
 }
 
 void		printpermisii(mode_t filemode)
@@ -51,6 +51,6 @@ void		printpermisii(mode_t filemode)
 		permisii[5] = (filemode & S_IXGRP) ? 's' : 'S';
 	if (filemode & S_ISVTX)
 		permisii[8] = (filemode & S_IXOTH) ? 't' : 'T';
-	printf("%s", permisii);
+	ft_printf("%s", permisii);
 	free(permisii);
 }

@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 17:43:56 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 22:11:38 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			b_ls(const char *flags, const char *folder, int argc, char *pateka)
 	init_lists(&filelist, &childlist, &dirstrm, flags);
 	if ((ft_strchr(flags, 'd') || (dirstrm = opendir(folder)) == NULL) &&
 			add_child(&filelist, folder, flags, folder))
-		return (printf("b_ls: %s: %s\n", folder, strerror(errno)));
+		return (ft_printf("b_ls: %s: %s\n", folder, strerror(errno)));
 	while (dirstrm && (ent = readdir(dirstrm)) != NULL)
 	{
 		pateka = getfilepath(folder, ent->d_name);
@@ -64,8 +64,8 @@ void		flagchecker(char **flags, const char *arg)
 			&& arg[i] != 't' && arg[i] != 'R' && arg[i] != 'd'
 			&& arg[i] != 'g' && arg[i] != 'f' && arg[i] != 'u')
 		{
-			printf("b_ls: illegal option -- %c\n", arg[i]);
-			printf("usage: ls [-Ralrtdgfu] [file ...]\n");
+			ft_printf("b_ls: illegal option -- %c\n", arg[i]);
+			ft_printf("usage: ls [-Ralrtdgfu] [file ...]\n");
 			exit(0);
 		}
 	temp = *flags;
@@ -96,7 +96,7 @@ int			main(int argc, char **argv)
 	while (i < argc)
 	{
 		if (!b_ls(flag, argv[i], argc, path) && i + 1 != argc)
-			printf("\n");
+			ft_printf("\n");
 		i++;
 	}
 	exit(0);

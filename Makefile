@@ -6,7 +6,7 @@
 #    By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/14 16:52:43 by jguleski          #+#    #+#              #
-#    Updated: 2018/11/19 21:47:16 by jguleski         ###   ########.fr        #
+#    Updated: 2018/11/19 22:12:00 by jguleski         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,14 @@ OBJECTS_DIR = objects/
 OBJ_LIST = $(BLS:%.c=%.o)
 OBJECTS	= $(addprefix $(OBJECTS_DIR), $(OBJ_LIST))
 
-all: $(LIBFT) $(BLS) $(OBJECTS_DIR) $(OBJECTS)
-		gcc $(FLAGS) $(INCLUDES) $(BLS) $(LIBFT) -o $(NAME)
+all: $(NAME)
+
+$(NAME): $(LIBFT) $(BLS) $(OBJECTS_DIR) $(OBJECTS)
+		 @gcc $(FLAGS) $(INCLUDES) $(OBJECTS) $(LIBFT) -o $(NAME)
+		 @echo "ft_ls is ready"
 
 $(LIBFT):
+		@echo "Compiling stuff.. you know how it goes..."
 		@make -C libft/
 
 $(OBJECTS_DIR)%.o: %.c
@@ -44,15 +48,15 @@ $(OBJECTS_DIR):
 	@mkdir -p $(OBJECTS_DIR)
 
 debug:
-		gcc $(FLAGS) -g $(INCLUDES) $(BLS) $(LIB) -o test
+		gcc $(FLAGS) -g $(INCLUDES) $(BLS) $(LIBFT) -o test
 
 clean:
-		make -C libft/ clean
+		@make -C libft/ clean
 		@rm -rf $(OBJECTS_DIR)
 
 fclean:	clean
-		make -C libft/ fclean
-		rm -f $(NAME)
+		@make -C libft/ fclean
+		@rm -f $(NAME)
 		@rm -f b_ls
 
 re: fclean all

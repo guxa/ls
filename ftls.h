@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 19:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 17:44:44 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 22:03:08 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <dirent.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <string.h>
 # include <ctype.h>
 # include <stdarg.h>

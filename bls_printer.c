@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 21:08:57 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 17:52:51 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 22:21:49 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ void		blsprinter(t_afile *list, const char *flags, int ftype)
 	if (list && (ft_strchr(flags, 'l') || ft_strchr(flags, 'g')))
 	{
 		sizewidth = sizechecker(list);
-		(ftype == 0 ? 0 : printf("total %zu\n", blockcounter(list)));
+		(ftype == 0 ? 0 : ft_printf("total %zu\n", blockcounter(list)));
 		while (list)
 		{
 			printpermisii(list->permisii);
-			printf("  %2d ", list->linksnum);
-			printf("%-s  %-s  ", (ft_strchr(flags, 'g') ? "" : list->user), list->group);
+			ft_printf("  %2d ", list->linksnum);
+			ft_printf("%-s  %-s  ", (ft_strchr(flags, 'g') ? "" : list->user), list->group);
 			if (S_ISCHR(list->permisii) || S_ISBLK(list->permisii))
-				printf("%u, %u ", list->major, list->minor);
+				ft_printf("%u, %u ", list->major, list->minor);
 			else
-				printf("%*zu ", sizewidth, list->fsize);
+				ft_printf("%*zu ", sizewidth, list->fsize);
 			timeprinter(list);
 			list = list->next;
 		}
@@ -45,7 +45,7 @@ void		blsprinter(t_afile *list, const char *flags, int ftype)
 	else
 		while (list)
 		{
-			printf("%*s \n", -15, list->name);
+			ft_printf("%s \n", list->name);
 			list = list->next;
 		}
 }
@@ -87,13 +87,13 @@ void		timeprinter(t_afile *dfile)
 	current_time = time(NULL);
 	if (current_time - dfile->fnano.tv_sec > sixmonths)
 	{
-		printf("%.7s", &(ctime(&dfile->fnano.tv_sec)[4]));
-		printf("%5.4s ", &(ctime(&dfile->fnano.tv_sec)[20]));
+		ft_printf("%.7s", &(ctime(&dfile->fnano.tv_sec)[4]));
+		ft_printf("%5.4s ", &(ctime(&dfile->fnano.tv_sec)[20]));
 	}
 	else
-		printf("%.12s ", &(ctime(&dfile->fnano.tv_sec)[4]));
+		ft_printf("%.12s ", &(ctime(&dfile->fnano.tv_sec)[4]));
 	if (S_ISLNK(dfile->permisii))
-		printf("%-s -> %s\n", dfile->name, dfile->linkedfile);
+		ft_printf("%-s -> %s\n", dfile->name, dfile->linkedfile);
 	else
-		printf("%-s\n", dfile->name);
+		ft_printf("%-s\n", dfile->name);
 }

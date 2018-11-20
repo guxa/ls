@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 16:58:18 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 18:02:26 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 22:11:38 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	recbls(t_afile *childlist, const char *flags)
 	temp = childlist;
 	while (childlist)
 	{
-		printf("\n");
+		ft_printf("\n");
 		b_ls(flags, childlist->pateka, 5, NULL);
 		childlist = childlist->next;
 	}
@@ -68,7 +68,7 @@ void	pending(t_afile *flist, const char *flags, int argc,
 				const char *folder)
 {
 	if ((argc > 3 || (argc == 3 && ft_strlen(flags) < 1)))
-		printf("%s:\n", folder);
+		ft_printf("%s:\n", folder);
 	blsprinter(flist, flags, argc);
 	clearlist(flist);
 }
