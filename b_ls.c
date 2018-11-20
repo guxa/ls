@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 15:31:32 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 17:43:56 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,14 @@ int			b_ls(const char *flags, const char *folder, int argc, char *pateka)
 	t_afile			*filelist;
 	t_afile			*childlist;
 
-	childlist = NULL;
-	filelist = NULL;
-	dirstrm = NULL;
+	init_lists(&filelist, &childlist, &dirstrm, flags);
 	if ((ft_strchr(flags, 'd') || (dirstrm = opendir(folder)) == NULL) &&
 			add_child(&filelist, folder, flags, folder))
 		return (printf("b_ls: %s: %s\n", folder, strerror(errno)));
 	while (dirstrm && (ent = readdir(dirstrm)) != NULL)
 	{
 		pateka = getfilepath(folder, ent->d_name);
-		xfile = fillelem(pateka, ent->d_name);
+		xfile = fillelem(pateka, ent->d_name, g_uflag);
 		blslist(&filelist, xfile, flags);
 		if (ft_strchr(flags, 'R') && S_ISDIR(xfile->permisii))
 			add_child(&childlist, pateka, flags, ent->d_name);
@@ -64,10 +62,10 @@ void		flagchecker(char **flags, const char *arg)
 	while (arg[++i])
 		if (arg[i] != 'a' && arg[i] != 'l' && arg[i] != 'r'
 			&& arg[i] != 't' && arg[i] != 'R' && arg[i] != 'd'
-			&& arg[i] != 'g' && arg[i] != 'f')
+			&& arg[i] != 'g' && arg[i] != 'f' && arg[i] != 'u')
 		{
 			printf("b_ls: illegal option -- %c\n", arg[i]);
-			printf("usage: ls [-Ralrtdgf] [file ...]\n");
+			printf("usage: ls [-Ralrtdgfu] [file ...]\n");
 			exit(0);
 		}
 	temp = *flags;

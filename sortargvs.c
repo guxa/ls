@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 16:49:08 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 15:02:50 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 15:51:33 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int			sortjunk(char **argv, int argc, int flag, int x)
 
 int			cmptime(t_afile *curr, t_afile *element)
 {
-	if (curr->timemod - element->timemod < 0)
+	if (curr->fnano.tv_sec - element->fnano.tv_sec < 0)
 		return (1);
-	else if (curr->timemod - element->timemod == 0)
+	else if (curr->fnano.tv_sec - element->fnano.tv_sec == 0)
 	{
 		if (curr->fnano.tv_nsec - element->fnano.tv_nsec < 0)
 			return (1);

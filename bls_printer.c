@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 21:08:57 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 15:02:22 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 17:52:51 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		blsprinter(t_afile *list, const char *flags, int ftype)
 {
 	int sizewidth;
 
-	if (ft_strchr(flags, 'l') || ft_strchr(flags, 'g'))
+	if (list && (ft_strchr(flags, 'l') || ft_strchr(flags, 'g')))
 	{
 		sizewidth = sizechecker(list);
 		(ftype == 0 ? 0 : printf("total %zu\n", blockcounter(list)));
@@ -85,13 +85,13 @@ void		timeprinter(t_afile *dfile)
 
 	sixmonths = 15768000;
 	current_time = time(NULL);
-	if (current_time - dfile->timemod > sixmonths)
+	if (current_time - dfile->fnano.tv_sec > sixmonths)
 	{
-		printf("%.7s", &(ctime(&dfile->timemod)[4]));
-		printf("%5.4s ", &(ctime(&dfile->timemod)[20]));
+		printf("%.7s", &(ctime(&dfile->fnano.tv_sec)[4]));
+		printf("%5.4s ", &(ctime(&dfile->fnano.tv_sec)[20]));
 	}
 	else
-		printf("%.12s ", &(ctime(&dfile->timemod)[4]));
+		printf("%.12s ", &(ctime(&dfile->fnano.tv_sec)[4]));
 	if (S_ISLNK(dfile->permisii))
 		printf("%-s -> %s\n", dfile->name, dfile->linkedfile);
 	else

@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 16:58:18 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 15:33:38 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 17:59:01 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ const char *flags, const char *fname)
 
 	if (ft_strcmp(fname, ".") == 0 || ft_strcmp(fname, "..") == 0)
 		return (-1);
-	if ((rxfile = fillelem(path, fname)) == NULL)
+	if ((rxfile = fillelem(path, fname, g_uflag)) == NULL)
 		return (-1);
 	blslist(head, rxfile, flags);
 	return (0);
@@ -62,4 +62,13 @@ void	pending(t_afile *flist, const char *flags, int argc,
 		printf("%s:\n", folder);
 	blsprinter(flist, flags, argc);
 	clearlist(flist);
+}
+
+void	init_lists(t_afile **filelist, t_afile **childlist, DIR **dirstrm,
+					const char *flags)
+{
+	g_uflag = (ft_strchr(flags, 'u') == NULL ? '0' : 'u');
+	*childlist = NULL;
+	*filelist = NULL;
+	*dirstrm = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 19:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 15:31:43 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 17:44:44 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct	s_afile
 	char				*user;
 	char				*group;
 	size_t				fsize;
-	time_t				timemod;
 	char				type;
 	blkcnt_t			blocks;
 	char				linkedfile[1024];
@@ -49,6 +48,10 @@ typedef struct	s_afile
 	char				*pateka;
 }				t_afile;
 
+char			g_uflag;
+
+void			init_lists(t_afile **filelist, t_afile **childlist,
+							DIR **dirstrm, const char *flags);
 void			pending(t_afile *flist, const char *flags, int argc,
 				const char *folder);
 int				add_child(t_afile **head, const char *path,
@@ -71,25 +74,8 @@ void			blsprinter(t_afile *filelist, const char *flags, int type);
 void			revabcsort(t_afile **head, t_afile *element);
 void			abcsort(t_afile **head, t_afile *element);
 void			blslist(t_afile **head, t_afile *element, const char *flags);
-t_afile			*fillelem(const char *path, char const *fname);
+t_afile			*fillelem(const char *path, char const *fname, char uflag);
 int				b_ls(const char *flags, const char *folder, int argc,
 				char *pateka);
-// char			*ft_strcat(char *dest, const char *string);
-
-// void			ft_putnbr(int nb);
-// void			ft_putstr(char *str);
-// void			ft_putchar(char c);
-// int				ft_atoi(char *str);
-
-// char			*ft_strcpy(char *dst, const char *src);
-// char			*ft_strncpy(char *dst, const char *src, size_t len);
-// size_t			ft_strlen(const char *s);
-// char			*ft_strdup(const char *s1);
-// int				ft_strcmp(const char *s1, const char *s2);
-// char			*ft_strchr(const char *s, int c);
-// int				ft_isdigit(int c);
-// int				ft_tolower(int c);
-// int				ft_toupper(int c);
-// void			*ft_memset(void *b, int c, size_t len);
 
 #endif

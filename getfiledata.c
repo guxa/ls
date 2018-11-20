@@ -6,13 +6,13 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/29 00:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 15:02:19 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 17:58:47 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ftls.h"
 
-t_afile		*fillelem(const char *path, char const *fname)
+t_afile		*fillelem(const char *path, char const *fname, char uflag)
 {
 	t_afile			*thefile;
 	struct stat		atribute;
@@ -27,12 +27,12 @@ t_afile		*fillelem(const char *path, char const *fname)
 	thefile->user = ft_strdup(getpwuid(atribute.st_uid)->pw_name);
 	thefile->group = ft_strdup(getgrgid(atribute.st_gid)->gr_name);
 	thefile->fsize = atribute.st_size;
-	thefile->timemod = atribute.st_mtime;
 	thefile->name = ft_strdup(fname);
 	thefile->type = (fname[0] == '.' ? 'a' : 'b');
 	thefile->blocks = atribute.st_blocks;
 	thefile->next = NULL;
-	thefile->fnano = atribute.st_mtimespec;
+	thefile->fnano =
+			(uflag == 'u' ? atribute.st_atimespec : atribute.st_mtimespec);
 	thefile->pateka = ft_strdup(path);
 	if (S_ISLNK(thefile->permisii))
 		getslink(path, thefile);
