@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 16:58:18 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/20 00:38:04 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/20 01:08:09 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ const char *flags, const char *fname)
 {
 	t_afile *rxfile;
 
-	if (errno)
+	if (errno && errno != ENOTDIR)
 		return (-1);
 	if (ft_strcmp(fname, ".") == 0 || ft_strcmp(fname, "..") == 0)
 		return (-1);
@@ -71,7 +71,7 @@ void	init_lists(t_afile **filelist, t_afile **childlist, DIR **dirstrm,
 void	pending(t_afile *flist, const char *flags, int argc,
 				const char *folder)
 {
-	if ((argc > 3 || (argc == 3 && ft_strlen(flags) < 1)))
+	if (argc - 2 > ((int)ft_strlen(flags) / 2))
 		ft_printf("%s:\n", folder);
 	blsprinter(flist, flags, argc);
 	clearlist(flist);
