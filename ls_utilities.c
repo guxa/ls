@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanlist.c                                        :+:      :+:    :+:   */
+/*   ls_utilities.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 16:58:18 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 17:59:01 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/19 18:02:26 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,6 @@ const char *flags, const char *fname)
 	return (0);
 }
 
-void	pending(t_afile *flist, const char *flags, int argc,
-				const char *folder)
-{
-	if ((argc > 3 || (argc == 3 && ft_strlen(flags) < 1)))
-		printf("%s:\n", folder);
-	blsprinter(flist, flags, argc);
-	clearlist(flist);
-}
-
 void	init_lists(t_afile **filelist, t_afile **childlist, DIR **dirstrm,
 					const char *flags)
 {
@@ -71,4 +62,13 @@ void	init_lists(t_afile **filelist, t_afile **childlist, DIR **dirstrm,
 	*childlist = NULL;
 	*filelist = NULL;
 	*dirstrm = NULL;
+}
+
+void	pending(t_afile *flist, const char *flags, int argc,
+				const char *folder)
+{
+	if ((argc > 3 || (argc == 3 && ft_strlen(flags) < 1)))
+		printf("%s:\n", folder);
+	blsprinter(flist, flags, argc);
+	clearlist(flist);
 }
