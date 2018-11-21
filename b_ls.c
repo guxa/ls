@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 15:55:31 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/20 00:05:25 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/20 19:02:07 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ void		flagchecker(char **flags, const char *arg)
 
 	i = 0;
 	while (arg[++i])
-		if (arg[i] != 'a' && arg[i] != 'l' && arg[i] != 'r'
-			&& arg[i] != 't' && arg[i] != 'R' && arg[i] != 'd'
+		if (arg[i] != 'a' && arg[i] != 'l' && arg[i] != 'r' && arg[i] != 't'
+			&& arg[i] != 'o' && arg[i] != 'R' && arg[i] != 'd'
 			&& arg[i] != 'g' && arg[i] != 'f' && arg[i] != 'u')
 		{
 			ft_printf("ft_ls: illegal option -- %c\n", arg[i]);
-			ft_printf("usage: ls [-Ralrtdgfu] [file ...]\n");
+			ft_printf("usage: ls [-Ralrtdogfu] [file ...]\n");
 			exit(0);
 		}
 	temp = *flags;

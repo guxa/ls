@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 21:08:57 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 23:26:48 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/20 19:09:54 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ void		blsprinter(t_afile *list, const char *flags, int ftype)
 {
 	int sizewidth;
 
-	if (list && (ft_strchr(flags, 'l') || ft_strchr(flags, 'g')))
+	if (list && (ft_strchr(flags, 'l') || ft_strchr(flags, 'g') || g_oflag))
 	{
 		sizewidth = sizechecker(list);
 		(ftype == 0 ? 0 : ft_printf("total %zu\n", blockcounter(list)));
 		while (list)
 		{
 			printpermisii(list->permisii);
-			ft_printf("  %2d ", list->linksnum);
+			ft_printf(" %2d ", list->linksnum);
 			ft_printf("%-s  %-s  ", (ft_strchr(flags, 'g') ? "" : list->user),
-						list->group);
+						(g_oflag == 1 ? "" : list->group));
 			if (S_ISCHR(list->permisii) || S_ISBLK(list->permisii))
 				ft_printf("%u, %u ", list->major, list->minor);
 			else

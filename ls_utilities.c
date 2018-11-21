@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 16:58:18 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/20 01:08:09 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/20 19:03:50 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	init_lists(t_afile **filelist, t_afile **childlist, DIR **dirstrm,
 	errno = 0;
 	g_uflag = (ft_strchr(flags, 'u') == NULL ? '0' : 'u');
 	g_rflag = (ft_strchr(flags, 'R') == NULL ? 0 : 1);
+	g_oflag = (ft_strchr(flags, 'o') == NULL ? 0 : 1);
 	*childlist = NULL;
 	*filelist = NULL;
 	*dirstrm = NULL;

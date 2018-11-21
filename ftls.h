@@ -6,7 +6,7 @@
 /*   By: jguleski <jguleski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 19:05:04 by jguleski          #+#    #+#             */
-/*   Updated: 2018/11/19 23:04:08 by jguleski         ###   ########.fr       */
+/*   Updated: 2018/11/20 19:03:09 by jguleski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct	s_afile
 
 char			g_uflag;
 int				g_rflag;
+int				g_oflag;
 
 void			init_lists(t_afile **filelist, t_afile **childlist,
 							DIR **dirstrm, const char *flags);
